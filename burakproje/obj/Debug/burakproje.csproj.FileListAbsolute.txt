@@ -1,0 +1,17 @@
+C:\Users\Burak\source\repos\burakproje\burakproje\bin\Debug\burakproje.exe.config
+C:\Users\Burak\source\repos\burakproje\burakproje\bin\Debug\burakproje.exe
+C:\Users\Burak\source\repos\burakproje\burakproje\bin\Debug\burakproje.pdb
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.csproj.AssemblyReference.cache
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.mkayıt.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.odakayıt.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Properties.Resources.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.csproj.GenerateResource.cache
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.csproj.CoreCompileInputs.cache
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.exe
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.pdb
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.odakontrol.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Form2.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Form3.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Form4.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Form5.resources
+C:\Users\Burak\source\repos\burakproje\burakproje\obj\Debug\burakproje.Form6.resources
