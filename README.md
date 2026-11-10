@@ -1,87 +1,87 @@
 # Otel Basic Otomasyon
 
-C# Windows Forms ile yazılmış, SQL Server kullanan basit bir otel otomasyonu. Personel giriş yaptıktan sonra müşteri kaydı oluşturabiliyor, 14 odadan birine konaklama kaydı açabiliyor, odaların doluluk durumunu görebiliyor, müşteri çıkışı (kayıt silme) yapabiliyor ve müşterilere ait mesajları kaydedebiliyor. Arayüz ve kod tamamen Türkçe.
+A simple hotel management application written in C# Windows Forms, backed by SQL Server. After logging in, staff can register customers, open a stay record for one of 14 rooms, see room occupancy, check customers out (by deleting the record), and save messages for customers. The UI and the code are entirely in Turkish.
 
-## Özellikler
+## Features
 
-- **Personel girişi** (`Form6`, uygulamanın açılış formu): Kullanıcı adı ve şifre `personeller` tablosundan kontrol ediliyor.
-- **Ana menü** (`Form3`): Müşteri Kayıt, Mesajlar, Müşteri Çıkış ve Oda Kontrol ekranlarına geçiş.
-- **Müşteri kayıt** (`Form1`, sınıf adı `mkayıt`): TC kimlik no, ad, soyad, adres, telefon (maskeli giriş), doğum tarihi ve cinsiyet alınıyor. TC ve telefon alanlarına yalnızca rakam, ad ve soyad alanlarına yalnızca harf girilebiliyor. Ad ve soyad büyük harfe çevriliyor.
-- **Oda kayıt** (`odakayıt`): Giriş ve çıkış tarihi/saati, yemek dahil seçeneği ve oda numarası (1–14) seçiliyor. Dolu odalar kırmızı gösteriliyor. Kayıt sırasında TC'nin daha önce kayıtlı olmaması ve odanın boş olması kontrol ediliyor; ardından müşteri `müsteriler` tablosuna, konaklama `odakayıt` tablosuna yazılıyor.
-- **Ücret hesabı**: Gün sayısı × 1000. Yemek dahilse sonuç 1,25 ile çarpılıyor.
-- **Oda durumu** (`Form5`): 14 odanın doluluk durumu renkle gösteriliyor (dolu odalar kırmızı).
-- **Müşteri çıkış** (`Form4`): Tüm oda kayıtları tabloda listeleniyor, TC ile filtrelenebiliyor, seçili satırın kaydı silinerek çıkış yapılıyor.
-- **Mesajlar** (`Form2`): Sistemde kayıtlı bir TC için mesaj kaydediliyor; tüm mesajlar listede görüntüleniyor.
+- **Staff login** (`Form6`, the application's startup form): The username and password are checked against the `personeller` table.
+- **Main menu** (`Form3`): Navigation to the Müşteri Kayıt (Customer Registration), Mesajlar (Messages), Müşteri Çıkış (Customer Check-out) and Oda Kontrol (Room Status) screens.
+- **Customer registration** (`Form1`, class name `mkayıt`): Collects national ID (TC kimlik no), first name, last name, address, phone (masked input), date of birth and gender. The TC and phone fields accept digits only, and the first and last name fields accept letters only. First and last names are converted to uppercase.
+- **Room registration** (`odakayıt`): Check-in and check-out date/time, a meals-included option and the room number (1–14) are selected. Occupied rooms are shown in red. On save, the app checks that the TC is not already registered and that the room is free; the customer is then written to the `müsteriler` table and the stay to the `odakayıt` table.
+- **Price calculation**: Number of days × 1000. If meals are included, the result is multiplied by 1.25.
+- **Room status** (`Form5`): The occupancy of all 14 rooms is shown by color (occupied rooms in red).
+- **Customer check-out** (`Form4`): All room records are listed in a grid, can be filtered by TC, and check-out is done by deleting the selected row's record.
+- **Messages** (`Form2`): A message is saved for a TC that exists in the system; all messages are shown in a list.
 
-## Teknoloji
+## Technology
 
 - C#, Windows Forms
 - .NET Framework 4.7.2
-- Microsoft SQL Server (`System.Data.SqlClient`, Windows kimlik doğrulaması)
-- Visual Studio 2022 çözüm dosyası (`burakproje.sln`, VS 17)
+- Microsoft SQL Server (`System.Data.SqlClient`, Windows authentication)
+- Visual Studio 2022 solution file (`burakproje.sln`, VS 17)
 
-## Proje yapısı
+## Project structure
 
 ```
 burakproje.sln
 burakproje/
-├── Program.cs                 # Giriş noktası, Form6 ile açılıyor
-├── App.config                 # Bağlantı dizesi ve runtime ayarı
-├── Form6.cs                   # Personel girişi
-├── Form3.cs                   # Ana menü
-├── Form1.cs                   # Müşteri bilgileri (mkayıt)
-├── odakayıt.cs                # Oda / konaklama kaydı
-├── Form5.cs                   # Oda durumu
-├── Form4.cs                   # Müşteri çıkış
-├── Form2.cs                   # Mesajlar
-├── odakontrol.cs              # Boş form (kullanılmıyor)
-├── projeotelDataSet.xsd       # Typed DataSet (yalnızca müsteriler tablosu)
+├── Program.cs                 # Entry point, starts with Form6
+├── App.config                 # Connection string and runtime setting
+├── Form6.cs                   # Staff login
+├── Form3.cs                   # Main menu
+├── Form1.cs                   # Customer details (mkayıt)
+├── odakayıt.cs                # Room / stay registration
+├── Form5.cs                   # Room status
+├── Form4.cs                   # Customer check-out
+├── Form2.cs                   # Messages
+├── odakontrol.cs              # Empty form (unused)
+├── projeotelDataSet.xsd       # Typed DataSet (müsteriler table only)
 ├── Properties/
-└── Resources/left-arrow-28-48.png   # Geri butonu ikonu
+└── Resources/left-arrow-28-48.png   # Back button icon
 ```
 
-## Gereksinimler
+## Requirements
 
 - Windows
-- Visual Studio (.NET masaüstü geliştirme iş yükü ile) ve .NET Framework 4.7.2
-- SQL Server (Express veya LocalDB de olur) ve `projeotel` adında bir veritabanı
+- Visual Studio (with the .NET desktop development workload) and .NET Framework 4.7.2
+- SQL Server (Express or LocalDB also work) and a database named `projeotel`
 
-## Veritabanı
+## Database
 
-Depoda veritabanı oluşturma betiği yok. Kodda kullanılan tablolar ve sütunlar şunlar:
+The repository has no database creation script. These are the tables and columns used in the code:
 
-| Tablo | Sütunlar |
+| Table | Columns |
 |---|---|
 | `personeller` | `kullaniciadi`, `password` |
 | `müsteriler` | `mtc`, `mad`, `msoyad`, `mcinsiyet`, `mDogumTarihi`, `mtel`, `madres` |
 | `odakayıt` | `mtc`, `GTarih`, `CTarih`, `Yemek`, `odano`, `ucret` |
 | `mesajlar` | `id`, `mtc`, `Mesaj` |
 
-Sütun tipleri koddan kesin olarak çıkarılamıyor. Birkaç not:
+Column types can't be determined with certainty from the code. A few notes:
 
-- `GTarih` ve `CTarih` alanlarına `DateTime` değeri yazılıyor.
-- `Yemek` alanına `"0"` veya `"1"`, `mcinsiyet` alanına `"Erkek"` veya `"Kadın"` yazılıyor.
-- `Form4`, TC'yi grid'in 5. sütunundan (`Cells[4]`) okuyor. Bu yüzden `odakayıt` tablosundaki sütun sırası önemli.
-- `mesajlar.id` otomatik artan bir alan olmalı.
+- `DateTime` values are written to `GTarih` and `CTarih`.
+- `"0"` or `"1"` is written to `Yemek`, and `"Erkek"` or `"Kadın"` (male / female) to `mcinsiyet`.
+- `Form4` reads the TC from the grid's 5th column (`Cells[4]`), so the column order in the `odakayıt` table matters.
+- `mesajlar.id` should be an auto-increment field.
 
-Uygulamaya giriş yapabilmek için `personeller` tablosuna en az bir kullanıcı elle eklenmeli.
+To be able to log in, at least one user has to be added to the `personeller` table manually.
 
-## Kurulum ve çalıştırma
+## Setup and running
 
-1. SQL Server'da `projeotel` veritabanını ve yukarıdaki tabloları oluşturun.
-2. Bağlantı dizesini kendi sunucunuza göre güncelleyin (aşağıya bakın).
-3. `burakproje.sln` dosyasını Visual Studio ile açın ve F5 ile çalıştırın.
+1. Create the `projeotel` database and the tables above in SQL Server.
+2. Update the connection string for your server (see below).
+3. Open `burakproje.sln` in Visual Studio and run it with F5.
 
-## Yapılandırma
+## Configuration
 
-Bağlantı dizesi yalnızca `burakproje/App.config` içinde, `burakproje.Properties.Settings.projeotelConnectionString` adıyla tanımlı. Varsayılan değer `Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False`; kendi sunucunuza göre bu değeri değiştirmeniz yeterli.
+The connection string is defined only in `burakproje/App.config`, under the name `burakproje.Properties.Settings.projeotelConnectionString`. The default value is `Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False`; changing this value to match your server is all that's needed.
 
-`Form2.cs`, `Form4.cs`, `Form5.cs`, `Form6.cs` ve `odakayıt.cs` bağlantı dizesini `ConfigurationManager.ConnectionStrings[...]` ile bu kayıttan okuyor (projede `System.Configuration` referansı var). Derlenmiş uygulamada aynı ayar `burakproje.exe.config` dosyasında bulunuyor.
+`Form2.cs`, `Form4.cs`, `Form5.cs`, `Form6.cs` and `odakayıt.cs` read the connection string from this entry via `ConfigurationManager.ConnectionStrings[...]` (the project references `System.Configuration`). In the compiled application the same setting lives in `burakproje.exe.config`.
 
-## Notlar ve sınırlamalar
+## Notes and limitations
 
-- Şifreler veritabanında düz metin olarak saklanıyor ve karşılaştırılıyor (sorgular parametreli, ama şifreler hashlenmiyor).
-- Oda doluluk kontrolü tarih aralığına bakmıyor; `odakayıt` tablosunda o oda numarasıyla bir kayıt varsa oda dolu sayılıyor. Aynı TC ile ikinci bir kayıt da açılamıyor.
-- Ücret hesabında gün farkı `Convert.ToInt32` ile tam sayıya çevriliyor. Giriş ve çıkış arasındaki süre tam gün değilse hata oluşabilir.
-- Oda sayısı (14) ve günlük ücret (1000) kodda sabit.
-- Depoda lisans dosyası yok; lisans belirtilmemiş.
+- Passwords are stored and compared as plain text in the database (the queries are parameterized, but passwords are not hashed).
+- The room occupancy check doesn't look at date ranges; if the `odakayıt` table has any record with that room number, the room counts as occupied. A second record with the same TC can't be opened either.
+- In the price calculation, the day difference is converted to an integer with `Convert.ToInt32`. If the time between check-in and check-out is not a whole number of days, an error may occur.
+- The number of rooms (14) and the daily rate (1000) are hard-coded.
+- The repository has no license file; no license is specified.
