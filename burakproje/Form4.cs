@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace burakproje
         {
             InitializeComponent();
         }
-        SqlConnection baglanti = new SqlConnection("Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False");
+        SqlConnection baglanti = new SqlConnection(ConfigurationManager.ConnectionStrings["burakproje.Properties.Settings.projeotelConnectionString"].ConnectionString);
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
@@ -141,8 +142,8 @@ namespace burakproje
         private void button1_Click(object sender, EventArgs e)
         {
             baglanti.Open();
-            string komut = "DELETE  FROM odakayıt WHERE mtc='" + dataGridView1.CurrentRow.Cells["mtc"].Value.ToString()+ "'";
-            SqlCommand son = new SqlCommand(komut, baglanti);
+            SqlCommand son = new SqlCommand("DELETE  FROM odakayıt WHERE mtc=@tc", baglanti);
+            son.Parameters.AddWithValue("@tc", dataGridView1.CurrentRow.Cells["mtc"].Value.ToString());
             son.ExecuteNonQuery();
             baglanti.Close();
             verigöster();

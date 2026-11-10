@@ -74,16 +74,13 @@ Uygulamaya giriş yapabilmek için `personeller` tablosuna en az bir kullanıcı
 
 ## Yapılandırma
 
-Bağlantı dizesi sabit olarak `Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False` şeklinde yazılmış. Değiştirmeniz gereken yerler:
+Bağlantı dizesi yalnızca `burakproje/App.config` içinde, `burakproje.Properties.Settings.projeotelConnectionString` adıyla tanımlı. Varsayılan değer `Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False`; kendi sunucunuza göre bu değeri değiştirmeniz yeterli.
 
-- `burakproje/App.config` (`projeotelConnectionString`)
-- `Form2.cs`, `Form4.cs`, `Form5.cs`, `Form6.cs` ve `odakayıt.cs` içindeki `SqlConnection baglanti = new SqlConnection("...")` satırları
-
-Formlar `App.config` dosyasını okumuyor; kendi içlerindeki bağlantı dizesini kullanıyor. Bu yüzden bütün dosyaları ayrı ayrı güncellemek gerekiyor.
+`Form2.cs`, `Form4.cs`, `Form5.cs`, `Form6.cs` ve `odakayıt.cs` bağlantı dizesini `ConfigurationManager.ConnectionStrings[...]` ile bu kayıttan okuyor (projede `System.Configuration` referansı var). Derlenmiş uygulamada aynı ayar `burakproje.exe.config` dosyasında bulunuyor.
 
 ## Notlar ve sınırlamalar
 
-- Personel girişi (`Form6`) ve müşteri silme (`Form4`) sorguları string birleştirmeyle oluşturuluyor; SQL injection'a açık. Şifreler veritabanında düz metin olarak karşılaştırılıyor.
+- Şifreler veritabanında düz metin olarak saklanıyor ve karşılaştırılıyor (sorgular parametreli, ama şifreler hashlenmiyor).
 - Oda doluluk kontrolü tarih aralığına bakmıyor; `odakayıt` tablosunda o oda numarasıyla bir kayıt varsa oda dolu sayılıyor. Aynı TC ile ikinci bir kayıt da açılamıyor.
 - Ücret hesabında gün farkı `Convert.ToInt32` ile tam sayıya çevriliyor. Giriş ve çıkış arasındaki süre tam gün değilse hata oluşabilir.
 - Oda sayısı (14) ve günlük ücret (1000) kodda sabit.

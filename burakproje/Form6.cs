@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace burakproje
         {
             InitializeComponent();
         }
-        SqlConnection baglanti = new SqlConnection("Data Source=DESKTOP-3GIB9O5;Initial Catalog=projeotel;Integrated Security=True;Encrypt=False");
+        SqlConnection baglanti = new SqlConnection(ConfigurationManager.ConnectionStrings["burakproje.Properties.Settings.projeotelConnectionString"].ConnectionString);
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
@@ -43,7 +44,9 @@ namespace burakproje
                 user = textBox1.Text;
                 password = textBox2.Text;
 
-                SqlCommand cmd = new SqlCommand("select * from personeller where kullaniciadi= '"+user+ "' and password= '"+password+"'",baglanti);
+                SqlCommand cmd = new SqlCommand("select * from personeller where kullaniciadi=@user and password=@password",baglanti);
+                cmd.Parameters.AddWithValue("@user", user);
+                cmd.Parameters.AddWithValue("@password", password);
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read()) 
                 {
